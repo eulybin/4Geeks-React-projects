@@ -12,13 +12,16 @@ const Container = () => {
       </div>
 
       <div className='row'>
-        <div className='col-4'>
+        <div className='col-md-6 col-lg-3'>
           <Card />
         </div>
-        <div className='col-4'>
+        <div className='col-md-6 col-lg-3'>
           <Card />
         </div>
-        <div className='col-4'>
+        <div className='col-md-6 col-lg-3'>
+          <Card />
+        </div>
+        <div className='col-md-6 col-lg-3'>
           <Card />
         </div>
       </div>
