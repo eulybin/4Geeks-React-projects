@@ -91,5 +91,3 @@ dist/*
 !.htaccess
 !.eslintrc
 .now
-
-.DS_Store
