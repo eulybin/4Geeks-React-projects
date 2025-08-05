@@ -6,7 +6,7 @@ const Footer = () => {
       className='text-center bg-dark d-flex justify-content-center align-items-center pt-4 mt-5'
       style={{ height: '8rem' }}
     >
-      <p className='text-white'>Copyright @ Egor's Landing Page with React</p>
+      <p className='text-white'>© Egor's React Landing Page</p>
     </div>
   );
 };
