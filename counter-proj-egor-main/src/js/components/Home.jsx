@@ -1,15 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SecondsCounter from './SecondsCounter';
 
 const Home = () => {
-  const [counter, setCounter] = useState(0);
+  const [seconds, setSeconds] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setSeconds((prevSecondsState) => prevSecondsState + 1);
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <div className='container bg-dark p-5 text-center'>
-      <SecondsCounter seconds={counter} />
-      <button onClick={() => setCounter(counter + 1)} className='btn btn-primary btn-lg'>
-        Increment Counter
-      </button>
+      <SecondsCounter seconds={seconds} />
     </div>
   );
 };
