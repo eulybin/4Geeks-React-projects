@@ -9,15 +9,14 @@ const Home = () => {
 
   // --------- TIMER HELPER FUNCTION -----------
   const timerFunctionality = (arr) => {
-    let newArr = [...arr];
-    newArr[newArr.length - 1]++;
-    for (let i = newArr.length - 1; i > 0; i--) {
-      if (newArr[i] === 10) {
-        newArr[i] = 0;
-        newArr[i - 1]++;
+    arr[arr.length - 1]++;
+    for (let i = arr.length - 1; i > 0; i--) {
+      if (arr[i] === 10) {
+        arr[i] = 0;
+        arr[i - 1]++;
       }
     }
-    setSeconds(newArr);
+    setSeconds([...arr]);
   };
 
   useEffect(() => {
