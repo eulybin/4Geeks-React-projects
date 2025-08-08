@@ -4,6 +4,11 @@ import Button from './Button';
 
 const Home = () => {
   const [seconds, setSeconds] = useState('000000');
+  const [stopTimer, setStopTimer] = useState(false);
+
+  const handleResetTimer = () => {
+    setSeconds(0);
+  };
 
   // useEffect(() => {
   //   const timer = setInterval(() => {
@@ -18,7 +23,7 @@ const Home = () => {
       <SecondsCounter seconds={seconds} />
       <div>
         <Button btnText={'Stop Timer'} btnBg={'btn-danger'} />
-        <Button btnText={'Reset Timer'} btnBg={'btn-primary'} />
+        <Button onClick={handleResetTimer} btnText={'Reset Timer'} btnBg={'btn-primary'} />
       </div>
     </div>
   );
