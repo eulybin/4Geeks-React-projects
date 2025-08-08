@@ -33,10 +33,22 @@ const Home = () => {
       <div>
         <Button
           onClick={handleStopTimer}
+          btnIcon={
+            stopTimer ? (
+              <i className='fa-solid fa-play' style={{ color: '#ffffff' }}></i>
+            ) : (
+              <i className='fa-solid fa-stop' style={{ color: '#ffffff' }}></i>
+            )
+          }
           btnText={`${stopTimer ? 'Resume Timer' : 'Stop Timer'}`}
           btnColor={`${stopTimer ? 'btn-success' : 'btn-danger'}`}
         />
-        <Button onClick={handleResetTimer} btnText={'Reset Timer'} btnColor={'btn-primary'} />
+        <Button
+          onClick={handleResetTimer}
+          btnIcon={<i className='fa-solid fa-rotate-right' style={{ color: '#ffffff' }}></i>}
+          btnText={'Reset Timer'}
+          btnColor={'btn-primary'}
+        />
       </div>
     </div>
   );
