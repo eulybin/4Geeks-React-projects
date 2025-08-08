@@ -6,22 +6,26 @@ const Home = () => {
   const [seconds, setSeconds] = useState(0);
   const [stopTimer, setStopTimer] = useState(false);
 
+  useEffect(() => {
+    if (!stopTimer) {
+      const timer = setInterval(() => {
+        setSeconds((prevSecondsState) => prevSecondsState + 1);
+      }, 1000);
+
+      return () => clearInterval(timer);
+    }
+  }, [stopTimer]);
+
+  // --------- STOP TIMER -----------
+  const handleStopTimer = () => {
+    let currentSeconds = seconds;
+    setSeconds(currentSeconds);
+    setStopTimer((prevTimerState) => !prevTimerState);
+  };
+  // --------- RESET TIMER -----------
   const handleResetTimer = () => {
     setSeconds(0);
   };
-
-  const handleStopTimer = () => {
-    setSeconds((prevSecondsState) => (prevSecondsState = prevSecondsState));
-    setStopTimer((prevTimerState) => !prevTimerState);
-  };
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setSeconds((prevSecondsState) => prevSecondsState + 1);
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
 
   return (
     <div className='container bg-dark p-5 text-center'>
