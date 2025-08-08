@@ -3,27 +3,36 @@ import SecondsCounter from './SecondsCounter';
 import Button from './Button';
 
 const Home = () => {
-  const [seconds, setSeconds] = useState('000000');
+  const [seconds, setSeconds] = useState(0);
   const [stopTimer, setStopTimer] = useState(false);
 
   const handleResetTimer = () => {
     setSeconds(0);
   };
 
-  // useEffect(() => {
-  //   const timer = setInterval(() => {
-  //     setSeconds((prevSecondsState) => prevSecondsState + 1);
-  //   }, 1000);
+  const handleStopTimer = () => {
+    setSeconds((prevSecondsState) => (prevSecondsState = prevSecondsState));
+    setStopTimer((prevTimerState) => !prevTimerState);
+  };
 
-  //   return () => clearInterval(timer);
-  // }, []);
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setSeconds((prevSecondsState) => prevSecondsState + 1);
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <div className='container bg-dark p-5 text-center'>
       <SecondsCounter seconds={seconds} />
       <div>
-        <Button btnText={'Stop Timer'} btnBg={'btn-danger'} />
-        <Button onClick={handleResetTimer} btnText={'Reset Timer'} btnBg={'btn-primary'} />
+        <Button
+          onClick={handleStopTimer}
+          btnText={`${stopTimer ? 'Resume Timer' : 'Stop Timer'}`}
+          btnColor={`${stopTimer ? 'btn-success' : 'btn-danger'}`}
+        />
+        <Button onClick={handleResetTimer} btnText={'Reset Timer'} btnColor={'btn-primary'} />
       </div>
     </div>
   );
