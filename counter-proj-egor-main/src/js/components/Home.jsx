@@ -7,8 +7,6 @@ const Home = () => {
   const [seconds, setSeconds] = useState(initialSecondsStateValue);
   const [stopTimer, setStopTimer] = useState(false);
 
-  console.log(seconds);
-
   // --------- TIMER HELPER FUNCTION -----------
   const timerFunctionality = (arr) => {
     let newArr = [...arr];
