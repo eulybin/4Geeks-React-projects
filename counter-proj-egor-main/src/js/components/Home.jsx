@@ -3,28 +3,42 @@ import SecondsCounter from './SecondsCounter';
 import Button from './Button';
 
 const Home = () => {
-  const [seconds, setSeconds] = useState(0);
+  const initialSecondsStateValue = [0, 0, 0, 0, 0, 0];
+  const [seconds, setSeconds] = useState(initialSecondsStateValue);
   const [stopTimer, setStopTimer] = useState(false);
+
+  console.log(seconds);
+
+  // --------- TIMER HELPER FUNCTION -----------
+  const timerFunctionality = (arr) => {
+    let newArr = [...arr];
+    newArr[newArr.length - 1]++;
+    for (let i = newArr.length - 1; i > 0; i--) {
+      if (newArr[i] === 10) {
+        newArr[i] = 0;
+        newArr[i - 1]++;
+      }
+    }
+    setSeconds(newArr);
+  };
 
   useEffect(() => {
     if (!stopTimer) {
       const timer = setInterval(() => {
-        setSeconds((prevSecondsState) => prevSecondsState + 1);
+        timerFunctionality(seconds);
       }, 1000);
 
       return () => clearInterval(timer);
     }
-  }, [stopTimer]);
+  }, [stopTimer, seconds]);
 
   // --------- STOP TIMER -----------
   const handleStopTimer = () => {
-    let currentSeconds = seconds;
-    setSeconds(currentSeconds);
     setStopTimer((prevTimerState) => !prevTimerState);
   };
   // --------- RESET TIMER -----------
   const handleResetTimer = () => {
-    setSeconds(0);
+    setSeconds(initialSecondsStateValue);
   };
 
   return (
