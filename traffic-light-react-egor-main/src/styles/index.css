@@ -7,7 +7,7 @@ body {
   height: 375px;
   background-color: black;
   position: absolute;
-  top: 135px;
+  top: 115px;
   border-radius: 10px;
 
   display: flex;
@@ -24,23 +24,59 @@ body {
   z-index: -1;
 }
 
-.red-light {
-  height: 110px;
-  width: 110px;
+.red {
+  height: 105px;
+  width: 105px;
   border-radius: 50%;
   background-color: red;
 }
 
-.yellow-light {
-  height: 110px;
-  width: 110px;
+.yellow {
+  height: 105px;
+  width: 105px;
   border-radius: 50%;
   background-color: yellow;
 }
 
-.green-light {
-  height: 110px;
-  width: 110px;
+.green {
+  height: 105px;
+  width: 105px;
   border-radius: 50%;
   background-color: green;
+}
+
+.selected {
+  box-shadow: 0px 0px 75px #f8ffba;
+}
+
+.toggle-btn {
+  position: absolute;
+  top: 300px;
+  left: 420px;
+}
+
+.toggle-purple {
+  position: absolute;
+  top: 300px;
+  right: 420px;
+}
+
+.purple-body {
+  width: 190px;
+  height: 140px;
+  background-color: black;
+  position: absolute;
+  top: 360px;
+  border-radius: 10px;
+
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.purple {
+  height: 105px;
+  width: 105px;
+  border-radius: 50%;
+  background-color: purple;
 }
