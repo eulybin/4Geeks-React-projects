@@ -1,25 +1,31 @@
 import React, { useState, useEffect } from 'react';
 
 const Home = () => {
-  const [color, setColor] = useState('');
-  const [toggleLights, setToggleLights] = useState(true);
+  const [activeColor, setActiveColor] = useState('');
+  const [toggleLights, setToggleLights] = useState(false);
   const [showPurpleLight, setShowPurpleLight] = useState(false);
-
-  console.log(color);
+  const colors = ['red', 'yellow', 'green', showPurpleLight ? 'purple' : ''];
 
   const handleClick = (e) => {
-    const selectedTrafficLight = e.target.className;
-    setColor(selectedTrafficLight);
-    e.target.classList.add('selected');
+    const selectedColor = e.target.className.split(' ')[0].trim();
+    setActiveColor((prevActiveColor) => (prevActiveColor === selectedColor ? '' : selectedColor));
   };
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (toggleLights) {
-      }
+    if (toggleLights) {
+      let currentIndex = 0;
+      const interval = setInterval(() => {
+        setActiveColor(colors[currentIndex]);
+        console.log(colors[currentIndex]);
+        if (currentIndex >= colors.length - 1) {
+          currentIndex = 0;
+        } else {
+          currentIndex++;
+        }
+      }, 1000);
       return () => clearInterval(interval);
-    }, 500);
-  }, []);
+    }
+  }, [toggleLights, showPurpleLight]);
 
   // ------------ TOGGLE ALL LIGHTS  -------------
   const toggleAllLights = () => {
@@ -39,20 +45,20 @@ const Home = () => {
 
   return (
     <div className='d-flex justify-content-center'>
-      <div onClick={handleClick} className='traffic-light-body'>
-        <div className='red'></div>
-        <div className='yellow'></div>
-        <div className='green'></div>
-        {showPurpleLight && <div className='purple'></div>}
+      <div onClick={handleClick} className='traffic-light-body pt-2'>
+        {colors.map((color, index) => {
+          return <div key={index} className={`${color} light ${activeColor === color ? 'selected' : ''}`}></div>;
+        })}
       </div>
       <div className='traffic-light-stick'></div>
-
-      <button onClick={toggleAllLights} className='toggle-btn btn btn-primary btn-lg'>
-        Toggle Lights
-      </button>
-      <button onClick={togglePurpleLight} className='toggle-purple btn btn-secondary btn-lg'>
-        Toggle Purple
-      </button>
+      <div className='btns-div'>
+        <button onClick={toggleAllLights} className='mx-2 btn btn-primary btn-lg'>
+          Toggle Lights
+        </button>
+        <button onClick={togglePurpleLight} className='mx-2 btn btn-secondary btn-lg'>
+          Toggle Purple
+        </button>
+      </div>
     </div>
   );
 };
