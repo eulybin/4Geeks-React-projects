@@ -6,9 +6,8 @@ body {
   width: 190px;
   height: 375px;
   background-color: black;
-  position: absolute;
-  top: 115px;
   border-radius: 10px;
+  margin-top: 90px;
 
   display: flex;
   justify-content: space-evenly;
@@ -21,6 +20,7 @@ body {
   height: 350px;
   background-color: black;
   position: absolute;
+  top: 0;
   z-index: -1;
 }
 
@@ -49,8 +49,8 @@ body {
   box-shadow: 0px 0px 50px 15px #f8ffba;
 }
 
-.btns-div {
-  margin-top: 525px;
+.buttons-div {
+  margin-top: 15px;
 }
 
 .purple {

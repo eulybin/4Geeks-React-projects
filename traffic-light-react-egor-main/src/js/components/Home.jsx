@@ -14,6 +14,7 @@ const Home = () => {
   useEffect(() => {
     if (toggleLights) {
       let currentIndex = 0;
+      console.log(currentIndex);
       const interval = setInterval(() => {
         setActiveColor(colors[currentIndex]);
         console.log(colors[currentIndex]);
@@ -22,7 +23,7 @@ const Home = () => {
         } else {
           currentIndex++;
         }
-      }, 1000);
+      }, 500);
       return () => clearInterval(interval);
     }
   }, [toggleLights, showPurpleLight]);
@@ -44,14 +45,14 @@ const Home = () => {
   };
 
   return (
-    <div className='d-flex justify-content-center'>
+    <div className=' d-flex justify-content-center flex-column align-items-center'>
       <div onClick={handleClick} className='traffic-light-body pt-2'>
         {colors.map((color, index) => {
           return <div key={index} className={`${color} light ${activeColor === color ? 'selected' : ''}`}></div>;
         })}
       </div>
       <div className='traffic-light-stick'></div>
-      <div className='btns-div'>
+      <div className='buttons-div'>
         <button onClick={toggleAllLights} className='mx-2 btn btn-primary btn-lg'>
           Toggle Lights
         </button>
