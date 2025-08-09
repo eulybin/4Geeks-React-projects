@@ -4,7 +4,7 @@ const Home = () => {
   const [activeColor, setActiveColor] = useState('');
   const [toggleLights, setToggleLights] = useState(false);
   const [showPurpleLight, setShowPurpleLight] = useState(false);
-  const colors = ['red', 'yellow', 'green', showPurpleLight ? 'purple' : ''];
+  const colors = ['red', 'yellow', 'green', ...(showPurpleLight ? ['purple'] : [])];
 
   const handleClick = (e) => {
     const selectedColor = e.target.className.split(' ')[0].trim();
@@ -14,10 +14,8 @@ const Home = () => {
   useEffect(() => {
     if (toggleLights) {
       let currentIndex = 0;
-      console.log(currentIndex);
       const interval = setInterval(() => {
         setActiveColor(colors[currentIndex]);
-        console.log(colors[currentIndex]);
         if (currentIndex >= colors.length - 1) {
           currentIndex = 0;
         } else {
