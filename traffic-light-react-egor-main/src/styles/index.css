@@ -61,19 +61,6 @@ body {
   right: 420px;
 }
 
-.purple-body {
-  width: 190px;
-  height: 140px;
-  background-color: black;
-  position: absolute;
-  top: 360px;
-  border-radius: 10px;
-
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-}
-
 .purple {
   height: 105px;
   width: 105px;

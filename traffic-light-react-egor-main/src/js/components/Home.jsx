@@ -15,9 +15,9 @@ const Home = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (toggleAllLights) {
-        let currentLight = document.querySelector;
+      if (toggleLights) {
       }
+      return () => clearInterval(interval);
     }, 500);
   }, []);
 
@@ -29,6 +29,12 @@ const Home = () => {
   // ------------ TOGGLE PURPLE LIGHT  -------------
   const togglePurpleLight = () => {
     setShowPurpleLight((prevPurpleLightState) => !prevPurpleLightState);
+    const extendBody = document.querySelector('.traffic-light-body');
+    if (!showPurpleLight) {
+      extendBody.style.height = '500px';
+    } else {
+      extendBody.style.height = '375px';
+    }
   };
 
   return (
@@ -37,11 +43,7 @@ const Home = () => {
         <div className='red'></div>
         <div className='yellow'></div>
         <div className='green'></div>
-        {showPurpleLight && (
-          <div className='purple-body'>
-            <div className='purple'></div>
-          </div>
-        )}
+        {showPurpleLight && <div className='purple'></div>}
       </div>
       <div className='traffic-light-stick'></div>
 
