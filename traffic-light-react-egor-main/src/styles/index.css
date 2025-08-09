@@ -46,19 +46,11 @@ body {
 }
 
 .selected {
-  box-shadow: 0px 0px 75px #f8ffba;
+  box-shadow: 0px 0px 50px 15px #f8ffba;
 }
 
-.toggle-btn {
-  position: absolute;
-  top: 300px;
-  left: 420px;
-}
-
-.toggle-purple {
-  position: absolute;
-  top: 300px;
-  right: 420px;
+.btns-div {
+  margin-top: 525px;
 }
 
 .purple {
