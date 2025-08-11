@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import TodoItem from './TodoItem';
-
 import todosData from '../../data/todosData';
 
 const Home = () => {
@@ -51,6 +50,7 @@ const Home = () => {
       {data.map(({ todo, id }) => {
         return <TodoItem key={id} todo={todo} handleDeleteTodo={() => handleDeleteTodo(id)} />;
       })}
+      <div className='items-left'>{data.length} items left</div>
     </div>
   );
 };

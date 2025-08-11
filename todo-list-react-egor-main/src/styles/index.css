@@ -19,3 +19,7 @@ body {
   box-shadow: 3px 3px 10px #8e8e8e;
   border-radius: 5px;
 }
+
+.items-left {
+  font-style: italic;
+}
