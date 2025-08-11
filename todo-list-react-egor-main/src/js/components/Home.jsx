@@ -50,7 +50,9 @@ const Home = () => {
       {data.map(({ todo, id }) => {
         return <TodoItem key={id} todo={todo} handleDeleteTodo={() => handleDeleteTodo(id)} />;
       })}
-      <div className='items-left'>{data.length} items left</div>
+      <div className='items-left'>
+        {data.length} {data.length === 1 ? 'item' : 'items'} left
+      </div>
     </div>
   );
 };
