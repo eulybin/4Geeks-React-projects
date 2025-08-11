@@ -20,6 +20,14 @@ body {
   border-radius: 5px;
 }
 
+.delete-btn {
+  display: none;
+}
+
+.list-item:hover .delete-btn {
+  display: block;
+}
+
 .items-left {
   font-style: italic;
 }
