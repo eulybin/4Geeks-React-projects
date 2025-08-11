@@ -17,10 +17,11 @@ span {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 20px;
 
   background-color: rgb(255, 247, 218);
-  color: rgb(47, 47, 47);
+  color: rgb(75, 75, 75);
   font-size: 32px;
 
-  box-shadow: 5px 5px 5px #8e8e8e;
+  box-shadow: 3px 3px 10px #8e8e8e;
 }

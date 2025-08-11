@@ -8,8 +8,9 @@ const Home = () => {
   const [data, setData] = useState(todosData);
 
   const handleAddTodo = () => {
-    if (!todoInput === '') {
-      setData((prevTodosData) => [...prevTodosData, { todo: todoInput }]);
+    if (todoInput !== '') {
+      setData((prevTodosData) => [...prevTodosData, { todo: todoInput, id: data.length + 1 }]);
+      setTodoInput('');
     }
   };
 
@@ -20,7 +21,7 @@ const Home = () => {
   };
   return (
     <div className='main-container text-center'>
-      <div className='row'>
+      <div className='row mb-3'>
         <div className='col'>
           <h1 className='display-1'>todos</h1>
           <div className='input-group mb-3'>
@@ -39,12 +40,9 @@ const Home = () => {
           </div>
         </div>
       </div>
-
-      <ul>
-        {data.map(({ todo, id }) => {
-          return <TodoItem key={id} todo={todo} handleDeleteTodo={() => handleDeleteTodo(id)} />;
-        })}
-      </ul>
+      {data.map(({ todo, id }) => {
+        return <TodoItem key={id} todo={todo} handleDeleteTodo={() => handleDeleteTodo(id)} />;
+      })}
     </div>
   );
 };
