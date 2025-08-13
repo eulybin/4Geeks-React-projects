@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import TodoItem from './TodoItem';
 import todosData from '../../data/todosData';
 
-const Home = () => {
+const TodoApp = () => {
   const [todoInput, setTodoInput] = useState('');
   const [data, setData] = useState(todosData);
 
@@ -57,4 +57,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default TodoApp;
