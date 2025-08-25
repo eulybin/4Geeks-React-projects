@@ -1,10 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TodoItem from './TodoItem';
-import todosData from '../../data/todosData';
 
 const TodoApp = () => {
   const [todoInput, setTodoInput] = useState('');
-  const [data, setData] = useState(todosData);
+  const [data, setData] = useState([]);
+
+  // POST REQUEST FUNCTION
+  const getAllTodos = async () => {
+    const url = 'https://playground.4geeks.com/todo/users/eulybin';
+    try {
+      const response = await fetch(url);
+      const todosData = await response.json();
+      console.log(todosData.todos);
+      if (!response.ok) {
+        throw new Error('Could not fetch the todos!');
+      }
+    } catch (err) {
+      console.error('Something went wrong: ' + err);
+    }
+  };
+
+  useEffect(() => {
+    getAllTodos();
+  }, []);
 
   // -------- ADD TODO ON CLICK --------
   const handleAddTodo = () => {
@@ -25,6 +43,11 @@ const TodoApp = () => {
       handleAddTodo();
     }
   };
+  // -------- DELETE ALL TODOS --------
+  const handleDeleteAllTodos = () => {
+    setData([]);
+  };
+
   return (
     <div className='main-container text-center'>
       <div className='row mb-3'>
@@ -47,9 +70,15 @@ const TodoApp = () => {
           </div>
         </div>
       </div>
-      {data.map(({ todo, id }) => {
-        return <TodoItem key={id} todo={todo} handleDeleteTodo={() => handleDeleteTodo(id)} />;
-      })}
+      {data &&
+        data.map(({ todo, id }) => {
+          return <TodoItem key={id} todo={todo} handleDeleteTodo={() => handleDeleteTodo(id)} />;
+        })}
+      {data.length > 0 ? (
+        <button onClick={handleDeleteAllTodos} className='btn btn-danger my-3'>
+          Clear All Tasks
+        </button>
+      ) : null}
       <div className='items-left'>
         {data.length} {data.length === 1 ? 'item' : 'items'} left
       </div>
