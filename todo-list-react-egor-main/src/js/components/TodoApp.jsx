@@ -5,21 +5,30 @@ const TodoApp = () => {
   const [todoInput, setTodoInput] = useState('');
   const [data, setData] = useState([]);
 
-  // POST REQUEST FUNCTION
+  // GET ALL TODOS FUNCTION
   const getAllTodos = async () => {
     const url = 'https://playground.4geeks.com/todo/users/eulybin';
     try {
       const response = await fetch(url);
-      const todosData = await response.json();
-      console.log(todosData.todos);
       if (!response.ok) {
         throw new Error('Could not fetch the todos!');
       }
+
+      const todosData = await response.json();
+
+      //modify todosData to fit your local format
+      const displayTodos = todosData.todos.map((todoObj) => {
+        return { todo: todoObj.label, id: todoObj.id };
+      });
+      setData(displayTodos);
     } catch (err) {
       console.error('Something went wrong: ' + err);
     }
   };
 
+  console.log(data, todoInput);
+
+  // -------- FETCHING ALL TODOS ON PAGE LOAD --------
   useEffect(() => {
     getAllTodos();
   }, []);
@@ -27,7 +36,10 @@ const TodoApp = () => {
   // -------- ADD TODO ON CLICK --------
   const handleAddTodo = () => {
     if (todoInput !== '') {
-      setData((prevTodosData) => [...prevTodosData, { todo: todoInput, id: data.length + 1 }]);
+      setData((prevTodosData) => [
+        ...prevTodosData,
+        { todo: todoInput, id: Math.floor(Math.random() * (1000 - 100 + 1)) + 100 },
+      ]);
       setTodoInput('');
     }
   };
