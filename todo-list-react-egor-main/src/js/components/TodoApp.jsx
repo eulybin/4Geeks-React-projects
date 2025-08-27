@@ -1,56 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import TodoItem from './TodoItem';
+import { USER } from '../utils/constants';
+import { getAllUserTodos } from '../services/user';
 
 const TodoApp = () => {
   const [todoInput, setTodoInput] = useState('');
   const [data, setData] = useState([]);
 
-  // -------- GET ALL TODOS FUNCTION --------
-  const getAllTodos = async () => {
-    const url = 'https://playground.4geeks.com/todo/users/eulybin';
-    try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error('Could not fetch the todos!');
-      }
-
-      const todosData = await response.json();
-
-      //modify todosData to fit your local format
-      const displayTodos = todosData.todos.map((todoObj) => {
-        return { todo: todoObj.label, id: todoObj.id };
-      });
-      setData(displayTodos);
-    } catch (err) {
-      console.error('Something went wrong: ' + err);
-    }
-  };
-
-  // -------- POST NEW TODO FUNCTION --------
-  const postNewTodo = async (newTodo) => {
-    const url = 'https://playground.4geeks.com/todo/todos/eulybin';
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        body: JSON.stringify(newTodo),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      if (!response.ok) {
-        throw new Error('Could not add the new todo');
-      }
-      const result = await response.json();
-      return result;
-    } catch (err) {
-      console.error('Something went wrong: ' + err);
-    }
-  };
-
   // -------- FETCHING ALL TODOS ON PAGE LOAD --------
   useEffect(() => {
-    getAllTodos();
+    const fetchData = async () => {
+      const incomingTodosData = await getAllUserTodos(USER);
+      setData(incomingTodosData);
+    };
+    fetchData();
   }, []);
+
+  console.log('this is the data', data);
 
   // -------- ADD TODO ON CLICK --------
   const handleAddTodo = () => {
@@ -62,18 +28,21 @@ const TodoApp = () => {
       setTodoInput('');
     }
   };
-  // -------- DELETE TODO ON CLICK --------
-  const handleDeleteTodo = (id) => {
-    setData((prevTodoData) => {
-      return prevTodoData.filter((todo) => todo.id !== id);
-    });
-  };
+
   // -------- ADD TODO ON ENTER --------
   const handleAddOnEnter = (e) => {
     if (e.key === 'Enter') {
       handleAddTodo();
     }
   };
+
+  // -------- DELETE TODO ON CLICK --------
+  const handleDeleteTodo = (id) => {
+    setData((prevTodoData) => {
+      return prevTodoData.filter((todo) => todo.id !== id);
+    });
+  };
+
   // -------- DELETE ALL TODOS --------
   const handleDeleteAllTodos = () => {
     setData([]);
@@ -101,10 +70,9 @@ const TodoApp = () => {
           </div>
         </div>
       </div>
-      {data &&
-        data.map(({ todo, id }) => {
-          return <TodoItem key={id} todo={todo} handleDeleteTodo={() => handleDeleteTodo(id)} />;
-        })}
+      {data.map(({ label, id }) => {
+        return <TodoItem key={id} todo={label} handleDeleteTodo={handleDeleteTodo} />;
+      })}
       {data.length > 0 ? (
         <button onClick={handleDeleteAllTodos} className='btn btn-danger my-3'>
           Clear All Tasks

@@ -8,7 +8,8 @@ export const getAllUserTodos = async (userName) => {
       throw new Error(`Could not fetch the todos for ${userName}!`);
     }
     const json = await response.json();
-    return json;
+    console.log(json.todos);
+    return json.todos;
   } catch (err) {
     console.error('Something went wrong: ' + err);
   }
