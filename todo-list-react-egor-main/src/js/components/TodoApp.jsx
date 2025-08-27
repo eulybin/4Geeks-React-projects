@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import TodoItem from './TodoItem';
 import { USER } from '../utils/constants';
 import { getAllUserTodos } from '../services/user';
+import { addTodo } from '../services/todo';
 
 const TodoApp = () => {
   const [todoInput, setTodoInput] = useState('');
@@ -21,10 +22,7 @@ const TodoApp = () => {
   // -------- ADD TODO ON CLICK --------
   const handleAddTodo = () => {
     if (todoInput !== '') {
-      setData((prevTodosData) => [
-        ...prevTodosData,
-        { todo: todoInput, id: Math.floor(Math.random() * (1000 - 100 + 1)) + 100 },
-      ]);
+      addTodo(USER, todoInput);
       setTodoInput('');
     }
   };
