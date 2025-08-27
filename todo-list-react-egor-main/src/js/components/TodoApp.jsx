@@ -5,7 +5,7 @@ const TodoApp = () => {
   const [todoInput, setTodoInput] = useState('');
   const [data, setData] = useState([]);
 
-  // GET ALL TODOS FUNCTION
+  // -------- GET ALL TODOS FUNCTION --------
   const getAllTodos = async () => {
     const url = 'https://playground.4geeks.com/todo/users/eulybin';
     try {
@@ -26,7 +26,26 @@ const TodoApp = () => {
     }
   };
 
-  console.log(data, todoInput);
+  // -------- POST NEW TODO FUNCTION --------
+  const postNewTodo = async (newTodo) => {
+    const url = 'https://playground.4geeks.com/todo/todos/eulybin';
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(newTodo),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (!response.ok) {
+        throw new Error('Could not add the new todo');
+      }
+      const result = await response.json();
+      return result;
+    } catch (err) {
+      console.error('Something went wrong: ' + err);
+    }
+  };
 
   // -------- FETCHING ALL TODOS ON PAGE LOAD --------
   useEffect(() => {
