@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import TodoItem from './TodoItem';
 import { USER } from '../utils/constants';
 import { getAllUserTodos } from '../services/user';
-import { addTodo } from '../services/todo';
+import { addTodo, deleteTodo } from '../services/todo';
 
 const TodoApp = () => {
   const [todoInput, setTodoInput] = useState('');
@@ -20,9 +20,10 @@ const TodoApp = () => {
   console.log('this is the data', data);
 
   // -------- ADD TODO ON CLICK --------
-  const handleAddTodo = () => {
+  const handleAddTodo = async () => {
     if (todoInput !== '') {
-      addTodo(USER, todoInput);
+      const newTodo = await addTodo(USER, todoInput);
+      setData((prevTodoData) => [...prevTodoData, newTodo]);
       setTodoInput('');
     }
   };
@@ -35,10 +36,9 @@ const TodoApp = () => {
   };
 
   // -------- DELETE TODO ON CLICK --------
-  const handleDeleteTodo = (id) => {
-    setData((prevTodoData) => {
-      return prevTodoData.filter((todo) => todo.id !== id);
-    });
+  const handleDeleteTodo = async (id) => {
+    await deleteTodo(id);
+    setData((prevTodoData) => prevTodoData.filter((todo) => todo.id !== id));
   };
 
   // -------- DELETE ALL TODOS --------
@@ -68,9 +68,10 @@ const TodoApp = () => {
           </div>
         </div>
       </div>
-      {data.map(({ label, id }) => {
-        return <TodoItem key={id} todo={label} handleDeleteTodo={handleDeleteTodo} />;
-      })}
+      {data &&
+        data.map((todo) => {
+          return <TodoItem key={todo.id} todo={todo} handleDeleteTodo={() => handleDeleteTodo(todo.id)} />;
+        })}
       {data.length > 0 ? (
         <button onClick={handleDeleteAllTodos} className='btn btn-danger my-3'>
           Clear All Tasks

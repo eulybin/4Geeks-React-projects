@@ -25,3 +25,20 @@ export const addTodo = async (userName, newTodo) => {
     console.error('Something went wrong...' + err);
   }
 };
+
+// -------- DELETE EXISTING TODO --------
+export const deleteTodo = async (todoId) => {
+  try {
+    const response = await fetch(`${BASE_URL}/todos/${todoId}`, { method: 'DELETE' });
+    if (!response.ok) {
+      throw new Error(`Could not delete the todo with id: ${todoId}!`);
+    }
+    if (response.status !== 204) {
+      const json = await response.json();
+      return json;
+    }
+    return undefined;
+  } catch (err) {
+    console.error('Something went wrong...' + err);
+  }
+};
