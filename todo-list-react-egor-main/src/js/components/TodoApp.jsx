@@ -17,8 +17,6 @@ const TodoApp = () => {
     fetchData();
   }, []);
 
-  console.log('this is the data', data);
-
   // -------- ADD TODO ON CLICK --------
   const handleAddTodo = async () => {
     if (todoInput !== '') {
