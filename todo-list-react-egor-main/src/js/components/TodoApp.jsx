@@ -1,20 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import TodoItem from './TodoItem';
 import { USER } from '../utils/constants';
-import { getAllUserTodos } from '../services/user';
+import { getAllUserTodos, createNewUser } from '../services/user';
 import { addTodo, deleteTodo } from '../services/todo';
 
 const TodoApp = () => {
   const [todoInput, setTodoInput] = useState('');
   const [data, setData] = useState([]);
 
-  // -------- FETCHING ALL TODOS ON PAGE LOAD --------
+  // -------- CREATE NEW USER AND FETCH TODOS --------
   useEffect(() => {
-    const fetchData = async () => {
+    const initApp = async () => {
       const incomingTodosData = await getAllUserTodos(USER);
+      if (!incomingTodosData) {
+        await createNewUser(USER);
+      }
       setData(incomingTodosData);
     };
-    fetchData();
+
+    initApp();
   }, []);
 
   // -------- ADD TODO ON CLICK --------
