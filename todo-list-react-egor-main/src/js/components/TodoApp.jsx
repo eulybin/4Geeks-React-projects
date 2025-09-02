@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import TodoItem from './TodoItem';
 import { USER } from '../utils/constants';
-import { getAllUserTodos, createNewUser } from '../services/user';
+import { getAllUserTodos, createNewUser, deleteAllTodos } from '../services/user';
 import { addTodo, deleteTodo } from '../services/todo';
 
 const TodoApp = () => {
@@ -11,22 +11,23 @@ const TodoApp = () => {
   // -------- CREATE NEW USER AND FETCH TODOS --------
   useEffect(() => {
     const initApp = async () => {
-      const incomingTodosData = await getAllUserTodos(USER);
-      if (!incomingTodosData) {
+      const incomingTodos = await getAllUserTodos(USER);
+      if (!incomingTodos) {
         await createNewUser(USER);
       }
-      setData(incomingTodosData);
+      setData(incomingTodos);
     };
-
     initApp();
   }, []);
 
   // -------- ADD TODO ON CLICK --------
   const handleAddTodo = async () => {
-    if (todoInput !== '') {
+    if (todoInput !== '' && todoInput.length < 40) {
       const newTodo = await addTodo(USER, todoInput);
       setData((prevTodoData) => [...prevTodoData, newTodo]);
       setTodoInput('');
+    } else {
+      alert('Please enter a todo between 1-40 characters long.');
     }
   };
 
@@ -44,7 +45,9 @@ const TodoApp = () => {
   };
 
   // -------- DELETE ALL TODOS --------
-  const handleDeleteAllTodos = () => {
+  const handleDeleteAllTodos = async () => {
+    await deleteAllTodos(USER);
+    await createNewUser(USER);
     setData([]);
   };
 
@@ -70,7 +73,7 @@ const TodoApp = () => {
           </div>
         </div>
       </div>
-      {data &&
+      {data.length > 0 &&
         data.map((todo) => {
           return <TodoItem key={todo.id} todo={todo} handleDeleteTodo={() => handleDeleteTodo(todo.id)} />;
         })}

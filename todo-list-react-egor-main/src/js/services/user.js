@@ -33,25 +33,23 @@ export const getAllUserTodos = async (userName) => {
     if (!response.ok) {
       throw new Error(`Could not fetch the todos for ${userName}!`);
     }
-    const json = await response.json();
-    return json.todos;
+    const data = await response.json();
+    return data.todos;
   } catch (err) {
     console.error('Something went wrong: ' + err);
   }
 };
 
-// -------- DELETE ALL TODOS --------
+// -------- DELETE USER AND ALL TODOS --------
 export const deleteAllTodos = async (userName) => {
   try {
     const response = await fetch(`${BASE_URL}/users/${userName}`, { method: 'DELETE' });
     if (!response.ok) {
-      throw new Error(`Could not delete the todos for the user: ${userName}!`);
+      throw new Error(`Could not delete the user: ${userName}!`);
     }
-    if (response.status !== 204) {
-      const json = await response.json();
-      return json;
-    }
-    return undefined;
+    if (response.status === 204) return null;
+    const data = await response.json();
+    return data;
   } catch (err) {
     console.error('Something went wrong...' + err);
   }
