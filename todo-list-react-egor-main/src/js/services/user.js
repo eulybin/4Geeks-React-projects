@@ -26,6 +26,20 @@ export const createNewUser = async (userName) => {
   }
 };
 
+// -------- GET ALL USERS --------
+export const getAllUsers = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/users`);
+    if (!response.ok) {
+      throw new Error(`Could not fetch the users!`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.error('Something went wrong: ' + err);
+  }
+};
+
 // -------- GET ALL TODOS --------
 export const getAllUserTodos = async (userName) => {
   try {
