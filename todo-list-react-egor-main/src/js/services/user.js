@@ -2,26 +2,18 @@ import { BASE_URL } from '../utils/constants';
 
 // -------- CREATE NEW USER --------
 export const createNewUser = async (userName) => {
-  const newUserObj = {
-    name: userName,
-  };
-
-  const requestOptions = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-
   try {
-    const response = await fetch(`${BASE_URL}/users/${userName}`, requestOptions);
+    const response = await fetch(`${BASE_URL}/users/${userName}`, { method: 'POST' });
+
     if (!response.ok) {
-      throw new Error('Could not create a new user: ' + userName);
+      if (response.status >= 500) {
+        return;
+      }
+      throw new Error(`Could not create user ${userName}.`);
     }
-    const data = await response.json();
-    return data;
+    return await response.json();
   } catch (error) {
-    console.error('Something went wrong... ' + error);
+    console.error('Something went wrong...', error);
   }
 };
 

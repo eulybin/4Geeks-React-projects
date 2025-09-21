@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import TodoItem from './TodoItem';
 import { USER } from '../utils/constants';
 import { getAllUserTodos, createNewUser, deleteAllTodos, getAllUsers } from '../services/user';
