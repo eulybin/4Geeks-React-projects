@@ -8,7 +8,6 @@ export const createNewUser = async (userName) => {
 
   const requestOptions = {
     method: 'POST',
-    body: JSON.stringify(newUserObj),
     headers: {
       'Content-Type': 'application/json',
     },

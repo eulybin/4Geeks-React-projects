@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import TodoItem from './TodoItem';
 import { USER } from '../utils/constants';
-import { getAllUserTodos, createNewUser, deleteAllTodos } from '../services/user';
+import { getAllUserTodos, createNewUser, deleteAllTodos, getAllUsers } from '../services/user';
 import { addTodo, deleteTodo } from '../services/todo';
 
 const TodoApp = () => {
   const [todoInput, setTodoInput] = useState('');
   const [data, setData] = useState([]);
 
-  // -------- CREATE NEW USER AND FETCH TODOS --------
+  // -------- VERIFY USER EXISTS --------
   useEffect(() => {
-    const initApp = async () => {
-      const incomingTodos = await getAllUserTodos(USER);
-      if (!incomingTodos) {
+    const allUsersData = async () => {
+      const { users } = await getAllUsers();
+      const userExists = users.some((user) => user.name === USER);
+      if (!userExists) {
         await createNewUser(USER);
       }
-      setData(incomingTodos);
     };
-    initApp();
+    allUsersData();
   }, []);
 
   // -------- ADD TODO ON CLICK --------
@@ -55,7 +55,7 @@ const TodoApp = () => {
     <div className='main-container text-center'>
       <div className='row mb-3'>
         <div className='col'>
-          <h1 className='display-1'>todos</h1>
+          <h1 className='display-1'>Todo App</h1>
           <div className='input-group mb-3'>
             <input
               type='text'
